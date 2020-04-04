@@ -22,6 +22,12 @@ def filter_links(href):
     return False
 
 
+def page_title(url):
+    r = requests.get(url)
+    page = BeautifulSoup(r.text, 'html.parser')
+    pageTitle = page.find('h1', id="firstHeading").string
+    return pageTitle
+
 def bfs(url, depth, visited, path, flag):
     r = requests.get(url)
     page = BeautifulSoup(r.text, 'html.parser')
@@ -78,5 +84,15 @@ visit = {}
 pathie = deque([])
 deep = 0
 final = bfs(urlie, deep, visit, pathie, 0)
-
-print(final)
+i = 0
+hold = final.copy()
+if 'https://en.wikipedia.org/wiki/Star_Wars' in final:
+    for element in final:
+        x = hold.popleft()
+        y = page_title(x)
+        print("   " * i + y + " (" + x + ")")
+        i = i + 1
+else:
+    x = hold.popleft()
+    y = page_title(x)
+    print("Unable to find link from " + y + " to Star Wars")
