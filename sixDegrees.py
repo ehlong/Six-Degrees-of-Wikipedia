@@ -95,4 +95,4 @@ if 'https://en.wikipedia.org/wiki/Star_Wars' in final:
 else:
     x = hold.popleft()
     y = page_title(x)
-    print("Unable to find link from " + y + " to Star Wars")
+    print("Unable to find path from " + y + " to Star Wars")
